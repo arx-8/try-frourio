@@ -1,0 +1,145 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* eslint-disable jest/max-expects */
+/* eslint-disable jest/require-hook */
+/**
+ * This is a workaround to suppress the error message `Cannot compile namespaces when the '--isolatedModules' flag is provided.`.
+ * @see https://github.com/Microsoft/TypeScript/issues/15230
+ */
+// eslint-disable-next-line jest/no-export
+export {}
+
+/**
+ * Verify that UT works correctly.
+ */
+describe("example", () => {
+  it("with TypeScript", () => {
+    expect.hasAssertions()
+
+    // ## Arrange ##
+    const list: readonly number[] = Array.from([1, 2, 3, 4, 5])
+
+    // ## Act ##
+    const result = list
+      .filter((n) => n % 2 === 0)
+      .map((n) => n * 2)
+      .reduce((l, r) => l + r)
+
+    // ## Assert ##
+    expect(result).toStrictEqual(12)
+  })
+})
+
+describe("when in doubt, use `toStrictEqual`. It is the most reliable.", () => {
+  /**
+   * @see https://jestjs.io/docs/en/expect#tostrictequalvalue
+   */
+  it("`toStrictEqual` is the strictest.", () => {
+    expect.hasAssertions()
+
+    class Protein {
+      flavor: string
+
+      constructor(flavor: string) {
+        this.flavor = flavor
+      }
+    }
+
+    /* eslint-disable jest/prefer-strict-equal */
+    expect(new Protein("lemon")).toEqual({ flavor: "lemon" })
+    expect(new Protein("lemon")).not.toStrictEqual({ flavor: "lemon" })
+    /* eslint-enable jest/prefer-strict-equal */
+  })
+
+  class Human {
+    // eslint-disable-next-line @typescript-eslint/parameter-properties
+    constructor(private readonly name: string, private readonly age: number) {}
+
+    public getGreet(): string {
+      return `My name is ${this.name}. ${this.age} years old`
+    }
+  }
+
+  it("toBe is `===`", () => {
+    expect.hasAssertions()
+
+    /* eslint-disable sort-keys-fix/sort-keys-fix */
+    // Literal
+    expect(2).not.toBe("2")
+    expect(2).not.toBe(true)
+    expect(0).not.toBe(false)
+    expect(false).toBe(false)
+
+    // Array
+    expect([1, 2, 4]).not.toBe([1, 2, 4])
+    expect([1, 2, 4]).not.toBe([1, 4, 2])
+
+    // Object
+    expect({ k0: 0, k1: 1 }).not.toBe({ k0: 0, k1: 1 })
+    expect({ k0: 0, k1: 1 }).not.toBe({ k1: 1, k0: 0 })
+    const objInstance = { k0: 0, k1: 1 }
+    expect(objInstance).toBe(objInstance)
+
+    // Class
+    expect(new Human("taro", 20)).not.toBe(new Human("taro", 20))
+    const classInstance = new Human("taro", 20)
+    expect(classInstance).toBe(classInstance)
+    /* eslint-enable sort-keys-fix/sort-keys-fix */
+  })
+
+  it("toEqual is `deep equal`", () => {
+    expect.hasAssertions()
+
+    /* eslint-disable sort-keys-fix/sort-keys-fix, jest/prefer-strict-equal */
+    // Literal
+    expect(2).not.toEqual("2")
+    expect(2).not.toEqual(true)
+    expect(0).not.toEqual(false)
+    expect(false).toEqual(false)
+
+    // Array
+    /* eslint-disable jest/prefer-strict-equal */
+    expect([1, 2, 4]).toEqual([1, 2, 4])
+    expect([1, 2, 4]).not.toEqual([1, 4, 2])
+
+    // Object
+    expect({ k0: 0, k1: 1 }).toEqual({ k0: 0, k1: 1 })
+    expect({ k0: 0, k1: 1 }).toEqual({ k1: 1, k0: 0 })
+    const objInstance = { k0: 0, k1: 1 }
+    expect(objInstance).toEqual(objInstance)
+
+    // Class
+    expect(new Human("taro", 20)).toEqual(new Human("taro", 20))
+    const classInstance = new Human("taro", 20)
+    expect(classInstance).toEqual(classInstance)
+    /* eslint-enable jest/prefer-strict-equal */
+  })
+})
+
+describe("snapshot test", () => {
+  it("ok", () => {
+    expect.hasAssertions()
+    expect({ a: 0, b: "b1" }).toMatchSnapshot()
+    /* eslint-disable sort-keys-fix/sort-keys-fix */
+    expect({ b: "b1", a: 0 }).toMatchInlineSnapshot(`
+      {
+        "a": 0,
+        "b": "b1",
+      }
+    `)
+    /* eslint-enable sort-keys-fix/sort-keys-fix */
+  })
+})
+
+describe("exception test", () => {
+  const throwable = (): never => {
+    throw new Error("Lorem ipsum dolor sit")
+  }
+
+  it("assert exception message", () => {
+    expect.hasAssertions()
+    expect(() => {
+      throwable()
+    }).toThrowErrorMatchingInlineSnapshot('"Lorem ipsum dolor sit"')
+  })
+})

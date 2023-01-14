@@ -9,6 +9,18 @@
       "runtimeArgs": ["tsx"],
       "program": "${workspaceRoot}/src/index.ts",
       "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Run tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceRoot}/node_modules/jest/bin/jest.js",
+        "--runInBand"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

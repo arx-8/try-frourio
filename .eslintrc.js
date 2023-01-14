@@ -32,6 +32,13 @@ const config = {
         "@typescript-eslint/no-type-alias": 0,
       },
     },
+    {
+      extends: ["plugin:jest/all"],
+      files: ["*.test.ts", "*.test.tsx"],
+      rules: {
+        "jest/prefer-to-be": 0,
+      },
+    },
   ],
   parserOptions: {
     project: "./tsconfig.json",
