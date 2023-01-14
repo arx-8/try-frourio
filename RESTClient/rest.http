@@ -1,0 +1,9 @@
+### How to use
+# 1. `cp ${THIS_DIR}/.env.example ${THIS_DIR}/.env`
+# 2. Edit "${THIS_DIR}/.env" as you like
+
+### GET /
+GET {{$dotenv FQDN}}/
+
+### GET /hi
+GET {{$dotenv FQDN}}/hi
