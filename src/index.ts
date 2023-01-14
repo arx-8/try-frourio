@@ -1,6 +1,6 @@
 type Human = {
-  name: string
   lv: number
+  name: string
 }
 
 const h: Human = {

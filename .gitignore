@@ -130,4 +130,5 @@ dist
 .pnp.*
 
 # Project specific
-tmp/
+tmp/*
+!tmp/.gitkeep
