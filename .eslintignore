@@ -1,3 +1,6 @@
 coverage
 dist
 tmp
+
+# frourio auto generated files
+src/**/$*.ts

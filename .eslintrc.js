@@ -39,6 +39,15 @@ const config = {
         "jest/prefer-to-be": 0,
       },
     },
+    {
+      files: ["src/api/**/controller.ts"],
+      rules: {
+        /**
+         * for frourio auto generated files
+         */
+        "import/no-default-export": 0,
+      },
+    },
   ],
   parserOptions: {
     project: "./tsconfig.json",
