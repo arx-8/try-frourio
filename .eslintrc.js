@@ -33,6 +33,15 @@ const config = {
       },
     },
     {
+      files: ["src/api/**/controller.ts"],
+      rules: {
+        /**
+         * for frourio auto generated files
+         */
+        "import/no-default-export": 0,
+      },
+    },
+    {
       extends: ["plugin:jest/all"],
       files: ["*.test.ts", "*.test.tsx"],
       rules: {

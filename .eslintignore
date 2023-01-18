@@ -2,3 +2,6 @@ coverage
 dist
 pnpm-lock.yaml
 tmp
+
+# frourio auto generated files
+src/**/$*.ts

@@ -27,6 +27,8 @@ jobs:
 
       - run: pnpm i --frozen-lockfile
 
+      - run: pnpm run generate
+
       - run: pnpm run lint-dry
 
       - run: pnpm run test-ci

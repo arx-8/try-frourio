@@ -132,3 +132,6 @@ dist
 # Project specific
 tmp/*
 !tmp/.gitkeep
+
+# frourio generated
+src/**/$*.ts
